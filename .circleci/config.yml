@@ -21,10 +21,6 @@ commands:
     steps:
     - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client
    compile_and_test_mydumper:
-    parameters:
-      test:
-        type: boolean
-        default: true
     steps:
     - compile
     - store_artifacts:
@@ -39,9 +35,7 @@ jobs:
       - checkout
       - prepare_el_mysql80
       - compile_and_test_mydumper
-      # persist_to_workspace是CircleCI提供的命令，用于将当前作业的文件或目录保存到一个共享的工作空间中，使多个作业在同一个工作流中运行是，可以共享文件或数据
       - persist_to_workspace:
-        # 指定要保存到目录是/tmp/src/mydumper,. 表示保存当前目录的所有文件和子目录
         root: /tmp/src/mydumper
         paths:
           - .

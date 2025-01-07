@@ -18,16 +18,16 @@ executors:
     working_directory: /tmp/src/mydumper
 commands:
   prepare_el_mysql80:
-  steps:
-  - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client
+    steps:
+    - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client
   compile_and_test_mydumper:
-  steps:
-  - compile
-  - store_artifacts:
-      # 指定要存储的文件路径
-      path: /tmp/stream.sql
-      # 定义存储路径的名字，用于在CircleCI控制台或后续流程中引用
-      destination: artifact-file
+    steps:
+    - compile
+    - store_artifacts:
+        # 指定要存储的文件路径
+        path: /tmp/stream.sql
+        # 定义存储路径的名字，用于在CircleCI控制台或后续流程中引用
+        destination: artifact-file
 jobs:
   compile_and_test_mydumper_in_el7_mysql80:
     executor: el7_mysql80

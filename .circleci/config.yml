@@ -31,11 +31,16 @@ commands:
   compile_and_test_mydumper:
     steps:
     - compile
+    - run: bash ./test_mydumper.sh SSL
+    - store_test_results:
+      path: /tmp/test-results/
     - store_artifacts:
         # 指定要存储的文件路径
         path: /tmp/stream.sql
         # 定义存储路径的名字，用于在CircleCI控制台或后续流程中引用
         destination: artifact-file
+     - store_artifacts:
+        path: /tmp/data/
 jobs:
   compile_and_test_mydumper_in_el7_mysql80:
     executor: el7_mysql80

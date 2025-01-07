@@ -37,7 +37,7 @@ commands:
         path: /tmp/stream.sql
         # 定义存储路径的名字，用于在CircleCI控制台或后续流程中引用
         destination: artifact-file
-     - store_artifacts:
+    - store_artifacts:
         path: /tmp/data/
 jobs:
   compile_and_test_mydumper_in_el7_mysql80:

@@ -19,7 +19,8 @@ commands:
     steps:
     - run: sudo apt update
     - run: sudo apt install -y software-properties-common
-    - run: sudo add-apt-repository ppa:some/ppa
+    - run: sudo add-apt-repository ppa:percona/ppa
+    - run: sudo apt update
     - run: sudo percona-release setup -y ps57
     - run: sudo apt-get install -y gdb screen time libperconaserverclient20 percona-server-client-5.7 libperconaserverclient20-dev
 

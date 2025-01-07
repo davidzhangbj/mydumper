@@ -17,13 +17,13 @@ executors:
 commands:
   prepare_el_mysql80:
     steps:
-    - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client
+    - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client which
   compile:
     steps:
     - run:
         command: |
           source /etc/profile.d/sh.local || true
-    - run: cmake . 
+    - run: cmake . ""
     - run: make VERBOSE=1
     - run: sudo make install
     - run: ./mydumper --version

@@ -18,6 +18,16 @@ commands:
   prepare_el_mysql80:
     steps:
     - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client
+  compile:
+    steps:
+    - run:
+        command: |
+          source /etc/profile.d/sh.local || true
+    - run: cmake . 
+    - run: make VERBOSE=1
+    - run: sudo make install
+    - run: ./mydumper --version
+  
   compile_and_test_mydumper:
     steps:
     - compile

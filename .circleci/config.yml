@@ -1,7 +1,5 @@
 ---
 version: 2.1
-orbs:
-  capture-tag: rvla/capture-tag@0.0.2
 # executors是可以运行作业的参数化执行环境
 executors:
   el7_mysql80:

@@ -2,9 +2,9 @@
 version: 2.1
 # executors是可以运行作业的参数化执行环境
 executors:
-  ubuntu_tidb:
+  el7_mysql80:
     docker:
-    - image: mydumper/mydumper-builder-noble
+    - image: mydumper/mydumper-builder-el7
       environment:
         MYSQL_HOST: 127.0.0.1
         MYSQL_DB: mate
@@ -15,14 +15,9 @@ executors:
         MYSQL_ALLOW_EMPTY_PASSWORD: true
     working_directory: /tmp/src/mydumper
 commands:
-  prepare_ubuntu_tidb:
+  prepare_el_mysql80:
     steps:
-    - run: sudo apt update
-    - run: sudo apt install percona-release
-    - run: sudo apt update
-    - run: sudo percona-release setup -y ps57
-    - run: sudo apt-get install -y gdb screen time libperconaserverclient20 percona-server-client-5.7 libperconaserverclient20-dev
-
+    - run: sudo yum install -y libasan gdb screen time mysql-community-libs mysql-community-devel mysql-community-client which
   compile:
     steps:
     - run:
@@ -45,11 +40,11 @@ commands:
     - store_artifacts:
         path: /tmp/data/
 jobs:
-  compile_and_test_mydumper_in_ubuntu_tidb:
-    executor: ubuntu_tidb
+  compile_and_test_mydumper_in_el7_mysql80:
+    executor: el7_mysql80
     steps:
       - checkout
-      - prepare_ubuntu_tidb
+      - prepare_el_mysql80
       - compile_and_test_mydumper
       - persist_to_workspace:
           root: /tmp/src/mydumper
@@ -59,4 +54,4 @@ workflows:
   version: 2
   mydumper:
     jobs:
-    - compile_and_test_mydumper_in_ubuntu_tidb
+    - compile_and_test_mydumper_in_el7_mysql80
